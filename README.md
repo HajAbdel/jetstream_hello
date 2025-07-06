@@ -59,12 +59,19 @@ You can still use **Fortify alone** — but you have to build your own UI (forms
 
 # Let's go 
 
-## Install Jetstream
+## add jetstream
+
+```bash
+composer require laravel/jetstream
+```
+
+## OR Install Jetstream
 
 - with Livewire (blade)
 
 ```bash
 php artisan jetstream:install livewire
+composer require laravel/jetstream
 ```
 
 - with  Inertia (vuejs)
