@@ -1,47 +1,63 @@
-# Hello Jetstream
+# 👋 Hello Jetstream
 
-Hello Jetstream
+Welcome to Jetstream!
 
-# Objectif :
-- complet Authentification (login, register, reset password…)
-- email verif
-- user profil manage
-- 2 fact Authentification (2FA)
+## 🎯 Objective
 
-# Resume:
+Jetstream provides a complete authentication system with:
 
-### Jetstream uses Fortify behind the scenes to handle all authentication logic using Blade + Livewire or Vue + Inertia
+- Full authentication (login, register, reset password…)
+- Email verification
+- User profile management
+- Two-Factor Authentication (2FA)
 
-| Jetstream                         | Fortify                               |
-|-----------------------------------|---------------------------------------|
-| 📱 User Interface (UI)            | 🧠 Authentication Logic (Backend)      |
-| Blade + Livewire or Vue + Inertia | Handles login, register, reset, etc.  |
-| Provides forms and views          | Provides routes and logic             |
-| Easy to customize appearance      | Easy to customize behavior            |
-| Includes features like 2FA, teams | Manages sessions, password validation |
+---
 
-### Think of it this way:
-  - Fortify is like the engine of a car — it makes everything work.
-  - Jetstream is the dashboard and body — it shows you the buttons, screens, and layout.
+## 📝 Summary
 
-- Example: When a user signs up**
-- Jetstream shows the registration form (UI).
-- When the user submits, Fortify handles:
+- **Jetstream** uses **Fortify** behind the scenes to handle all authentication.
+- Jetstream automatically registers and configures Fortify and provides the user interface (UI).
+- Jetstream uses either **Livewire** or **Inertia.js** for rendering.
+
+---
+
+### 🔍 Comparison: Jetstream vs Fortify
+
+| Jetstream                          | Fortify                                |
+|-----------------------------------|----------------------------------------|
+| 📱 User Interface (UI)            | 🧠 Authentication Logic (Backend)       |
+| Blade + Livewire or Vue + Inertia | Handles login, register, reset, etc.   |
+| Provides forms and views          | Provides routes and logic              |
+| Easy to customize appearance      | Easy to customize behavior             |
+| Includes features like 2FA, teams | Manages sessions, password validation  |
+
+---
+
+### 💡 Think of it this way:
+
+- **Fortify** is like the **engine** of a car — it makes everything work.
+- **Jetstream** is the **dashboard and body** — it shows you the buttons, screens, and layout.
+
+---
+
+### 📌 Example: When a user signs up
+
+- Jetstream shows the registration form (**UI**).
+- When the user submits the form, **Fortify** handles:
   - Validation  
   - Creating the user  
   - Hashing the password  
   - Logging them in
 
-### Without Jetstream?
-You can still use Fortify alone — but you must build your own UI (forms, views, etc.).
+---
+
+### ❓ Without Jetstream?
+
+You can still use **Fortify alone** — but you have to build your own UI (forms, views, etc.).
+
+---
 
 # Let's go 
-
-## Add jetstream
-
-```bash
-composer require laravel/jetstream
-```
 
 ## Install Jetstream
 
@@ -62,6 +78,16 @@ php artisan jetstream:install inertia
 ```bash
 php artisan jetstream:install livewire --teams
 ```
+
+- Laravel does the following:
+  - Installs Jetstream and Fortify
+  - Registers Fortify routes in App\Providers\FortifyServiceProvider
+  - Adds logic files in App\Actions\Fortify for things like user creation and password updates
+
+- Example files generated:
+  - app/Actions/Fortify/CreateNewUser.php
+  - app/Actions/Fortify/UpdateUserPassword.php
+  - app/Actions/Fortify/ResetUserPassword.php
 
 ## Compile assets (JS/CSS)
 
