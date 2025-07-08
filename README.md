@@ -224,3 +224,6 @@ then
 ```bash
 npm run build
 ```
+
+---
+https://jetstream.laravel.com/introduction.html
