@@ -207,6 +207,7 @@ php artisan serve
 
  customize the logo by modifying a few Jetstream components
 
+
 ### Livewire
 
 resources/views/components/application-logo.blade.php
