@@ -203,3 +203,24 @@ php artisan serve
 ## Customize Validation Messages
 
 
+# Application Logo 
+
+ customize the logo by modifying a few Jetstream components
+
+### Livewire
+
+resources/views/components/application-logo.blade.php
+resources/views/components/application-mark.blade.php
+resources/views/components/authentication-card-logo.blade.php
+
+### Inertia
+
+resources/js/Components/ApplicationLogo.vue
+resources/js/Components/ApplicationMark.vue
+resources/js/Components/AuthenticationCardLogo.vue
+
+then 
+
+```bash
+npm run build
+```
