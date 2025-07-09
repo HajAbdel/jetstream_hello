@@ -180,34 +180,85 @@ php artisan migrate
   - app/Actions/Fortify/ResetUserPassword.php
 
 
-# Customize Validation Messages
-
-xxxx
-
-### Livewire
-
-resources/views/components/application-logo.blade.php
-resources/views/components/application-mark.blade.php
-resources/views/components/authentication-card-logo.blade.php
-
-### Inertia
-
-resources/js/Components/ApplicationLogo.vue
-resources/js/Components/ApplicationMark.vue
-resources/js/Components/AuthenticationCardLogo.vue
-
-then 
-
-```bash
-npm run build
-```
-
 # config session in .env file :
 Set this in .env:
 
 SESSION_DRIVER=database
 SESSION_LIFETIME=1
 SESSION_EXPIRE_ON_CLOSE=false
+
+# If Mus tVerify Email
+
+### User implémente MustVerifyEmail
+
+- app/Models/User.php
+
+```php
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+class User extends Authenticatable implements MustVerifyEmail
+{
+    // ...
+}
+```
+
+- routes/web.php:
+
+```php
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified', // <<< add this
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // Exemple aussi pour la page profil
+    Route::get('/user/profile', function () {
+        return view('profile.show');
+    })->name('profile.show');
+});
+```
+
+- verification.notice rout
+
+```php
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+// Page qui invite à vérifier l’email
+Route::get('/email/verify', function () {
+    return view('auth.verify-email'); // Crée cette vue
+})->middleware('auth')->name('verification.notice');
+
+// Lien dans l’email pour vérifier
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill(); // marque email comme vérifié
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// Renvoi du mail de vérification
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('status', 'verification-link-sent');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+```
+
+- .env
+
+```
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.example.com
+MAIL_PORT=587
+MAIL_USERNAME=ton_login
+MAIL_PASSWORD=ton_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=ton@mail.com
+MAIL_FROM_NAME="Nom de ton app"
+```
 
 ---
 https://jetstream.laravel.com/introduction.html
