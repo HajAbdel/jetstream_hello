@@ -163,14 +163,11 @@ php artisan migrate
   - 4 Tracks them in a table called migrations to avoid running them again
 
 
-
-
-
 - run all pending DB migrations in project.
 - it will :
 - 
 
-## Results:
+# Results:
 
 - Laravel does the following:
   - Installs Jetstream and Fortify
@@ -182,33 +179,12 @@ php artisan migrate
   - app/Actions/Fortify/UpdateUserPassword.php
   - app/Actions/Fortify/ResetUserPassword.php
 
-## 
 
+# Customize Validation Messages
 
+xxxx
 
-## Migrate
-
-- create tables (users, sessions)
-
-```bash
-php artisan migrate
-```
-
-## run serv
-
-```bash
-php artisan serve
-```
-
-## Customize Validation Messages
-
-
-# Application Logo 
-
- customize the logo by modifying a few Jetstream components
-
-
-### Livewire
+### Livewire
 
 resources/views/components/application-logo.blade.php
 resources/views/components/application-mark.blade.php
@@ -225,6 +201,13 @@ then
 ```bash
 npm run build
 ```
+
+# config session in .env file :
+Set this in .env:
+
+SESSION_DRIVER=database
+SESSION_LIFETIME=1
+SESSION_EXPIRE_ON_CLOSE=false
 
 ---
 https://jetstream.laravel.com/introduction.html
