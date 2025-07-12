@@ -260,5 +260,65 @@ MAIL_FROM_ADDRESS=ton@mail.com
 MAIL_FROM_NAME="Nom de ton app"
 ```
 
+# activate and display the user profile avatar in Jetstream 
+
+1. In app/Models/User.php, make sure it uses the HasProfilePhoto trait:
+
+```php
+use Laravel\Jetstream\HasProfilePhoto;
+
+class User extends Authenticatable
+{
+    use HasProfilePhoto; // ✅ Required for avatar support
+}
+```
+
+2. Ensure users table has profile_photo_path column
+
+```bash
+php artisan make:migration add_profile_photo_path_to_users_table
+```
+
+- In the migration file:
+
+```php
+public function up()
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->string('profile_photo_path', 2048)->nullable()->after('email');
+    });
+}
+```
+
+- run
+
+```bash
+php artisan migrate
+```
+
+3. Enable avatar upload in Jetstream config
+
+- In config/jetstream.php, set this option to true:
+
+```php
+'features' => [
+    // ...
+    Features::updateProfileInformation(),
+    Features::updatePasswords(),
+    Features::twoFactorAuthentication(),
+    Features::profilePhotos(), // ✅ Enable profile photos
+],
+```
+
+4. Ensure storage is linked
+
+```bash
+php artisan storage:link
+```
+
+5. Then in .env, check URL is valid:
+
+APP_URL=http://localhost:8000
+
 ---
 https://jetstream.laravel.com/introduction.html
